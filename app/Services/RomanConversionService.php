@@ -6,10 +6,15 @@ use App\Roman;
 
 class RomanConversionService extends AbstractNumberConversion
 {
-  protected $model = \App\Roman::class;
+  protected $model = \App\Roman::class; // Set the conversion service model
 
-  protected $transformer = \App\Transformers\RomanTransformer::class;
+  protected $transformer = \App\Transformers\RomanTransformer::class; // Set the conversion service transformer
 
+  /**
+   * Implement the convert method to convert integer to roman
+   * @param  integer $integer
+   * @return string
+   */
   public function convert($integer)
   {
     // Convert the integer into an integer (just to make sure)

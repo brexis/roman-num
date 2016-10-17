@@ -10,10 +10,10 @@ class RomanConversionTest extends TestCase
   use DatabaseMigrations;
 
   /**
-  * A basic test example.
-  *
-  * @return void
-  */
+   * Check if the the number is converted and store to the database
+   * When executing the create request
+   * @return void
+   */
   public function testShouldStoreTheRomanNumber()
   {
     $this->post('/api/roman', ['number' => 99])
@@ -26,6 +26,10 @@ class RomanConversionTest extends TestCase
     ]);
   }
 
+  /**
+   * Test the index request. Shoul return the list of the recent roman numbers
+   * @return void
+   */
   public function testShouldGetTheListOsRomanNumbers()
   {
     $romans = factory(Roman::class, 5)->create();
@@ -54,6 +58,10 @@ class RomanConversionTest extends TestCase
     ]);
   }
 
+  /**
+   * Test the top 10 converted integers request
+   * @return void
+   */
   public function testShouldGetTheTopTenRomanNumbers()
   {
     $ten = factory(Roman::class, 2)->create([

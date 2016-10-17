@@ -5,6 +5,9 @@ namespace App\Transformers;
 use League\Fractal\TransformerAbstract;
 use App\Roman;
 
+/**
+ * Roman data transformer class
+ */
 class RomanTransformer extends TransformerAbstract
 {
   public function transform(Roman $roman)

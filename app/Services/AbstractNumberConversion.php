@@ -6,19 +6,44 @@ use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Resource\Collection;
 use DB;
 
+/**
+ * Abstract number conversion service class
+ */
 abstract class AbstractNumberConversion
 {
+  /**
+   * The model that is managing
+   * @var Illuminate\Database\Eloquent\Model
+   */
   protected $model;
 
+  /**
+   * Fractal transformer of the model
+   * @var League\Fractal\TransformerAbstract
+   */
   protected $transformer;
 
+  /**
+   * Number of items per page
+   * @var integer
+   */
   protected $perPage = 10;
 
+  /**
+   * Convert a given number to a target type
+   * @param  integer $num
+   * @return mixed
+   */
   public function convert($num)
   {
     return $num;
   }
 
+  /**
+   * Convert and store the converted number in the database
+   * @param  integer $num
+   * @return array the saved model trasformed to array using the transformer
+   */
   public function store($num)
   {
     $result = $this->convert($num);
@@ -34,6 +59,10 @@ abstract class AbstractNumberConversion
     return fractal()->item($resource, new $transformer)->toArray();
   }
 
+  /**
+   * Return all the recent converted numbers returned as array using the transformer
+   * @return array
+   */
   public function list()
   {
     $model = $this->getModel();
@@ -47,6 +76,10 @@ abstract class AbstractNumberConversion
     ->paginateWith(new IlluminatePaginatorAdapter($paginator))->toArray();
   }
 
+  /**
+   * Return the top 10 converted number
+   * @return array
+   */
   public function top()
   {
     $model = $this->getModel();
@@ -66,6 +99,10 @@ abstract class AbstractNumberConversion
     ->collection($resources, new $transformer)->toArray();
   }
 
+  /**
+   * Return the model table columns
+   * @return array the model table columns
+   */
   protected function getColumns()
   {
     $model = $this->getModel();
@@ -74,6 +111,10 @@ abstract class AbstractNumberConversion
     return DB::getSchemaBuilder()->getColumnListing($resource->getTable());
   }
 
+  /**
+   * Return the model class. Throw an error if it's not defined
+   * @return string
+   */
   protected function getModel()
   {
     if (! class_exists($this->model)) {
@@ -83,6 +124,10 @@ abstract class AbstractNumberConversion
     return $this->model;
   }
 
+  /**
+   * Return the model transformer. Throw an error if it's not defined
+   * @return string
+   */
   protected function getTransformer()
   {
     if (! class_exists($this->transformer)) {

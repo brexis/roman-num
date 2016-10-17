@@ -12,3 +12,96 @@ Implemented files
 * Fractal Roman model trasformer `app/Transformers/RomanTransformer.php`
 * The phpunit test file `tests/RomanConversionTest.php`
 * The Roman model fatory `database/factories/RomanFactory.php`
+
+
+# Api Documentation
+### Convert an integer and store in the database
+
+```
+POST http://localhost:8000/api/roman
+```
+
+### Example
+```
+$ curl http://localhost:8000/api/roman \
+   -H "Content-Type: application/x-www-form-urlencoded" \
+   -d number=19
+```
+
+### Response
+
+```
+{
+  "data":
+    {
+      "id":1,
+      "number":"19",
+      "result":"XIX",
+      "created_at":"2016-10-17 10:11:06"
+    }
+}
+```
+### Get the list of recently converted integers
+
+```
+GET http://localhost:8000/api/roman
+```
+
+### Example
+```
+$ curl http://localhost:8000/api/roman
+```
+
+### Response
+
+```
+{
+  "data":
+    [
+      {
+        "id":1,
+        "number":19,
+        "result":"XIX",
+        "created_at":"2016-10-17 10:11:06"
+      }
+    ],
+  "meta":
+    {
+      "pagination":
+        {
+          "total":1,
+          "count":1,
+          "per_page":10,
+          "current_page":1,
+          "total_pages":1,
+          "links":[]
+        }
+    }
+}
+```
+### Get the list of top 10 converted integers
+
+```
+GET http://localhost:8000/api/roman/top
+```
+
+### Example
+```
+$ curl http://localhost:8000/api/roman/top
+```
+
+### Response
+
+```
+{
+  "data":
+    [
+      {
+        "id":1,
+        "number":19,
+        "result":"XIX",
+        "created_at":"2016-10-17 10:11:06"
+      }
+    ]
+}
+```

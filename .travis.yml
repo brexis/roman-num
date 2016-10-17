@@ -8,7 +8,7 @@ services:
 
 before_script:
   - cp .env.travis .env
-  - mysql -e 'create database roman-num;'
+  - mysql -e 'create database roman_num;'
   - composer self-update
   - composer install --no-interaction
 
